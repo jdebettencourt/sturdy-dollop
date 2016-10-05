@@ -1,0 +1,32 @@
+
+Some gcc examples
+
+Creating files with gcc
+
+...$ gcc program.c
+
+The above compiler command creates the executable file a.out which can then be executed using:
+
+...$ ./a.out
+
+-and-
+
+...$ gcc -o program program.c -Wall -W
+
+The above compiler command creates the executable file program from program.c, showing all warnings; run using a command like:
+
+...$ ./program
+
+-more-
+ 	
+...$ gcc -g -Og -c program.c
+
+The above compiler command produces a basically optimized object file with debug information, `program.o', from the source file `program.c'
+
+...$ gcc -Og -c program.c
+
+The above compiler command produces a basically optimized object file without debug information, `program.o', from the source file `program.c'
+
+...$ gcc -Og -S program.c
+
+The above compiler command produces a basically optimized readable assembler file without debug information, `program.s', from the source file `program.c'
