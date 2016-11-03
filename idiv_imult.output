@@ -1,0 +1,6 @@
+base random value = 392097077
+mod 100 result = 77
+ randv = 392097077
+ integer division result = 3920970
+ std naive division result = 3920970.000000
+ test float division result = 3920970.7700

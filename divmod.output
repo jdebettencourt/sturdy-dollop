@@ -1,0 +1,7 @@
+base random value = 392097077
+mod 100 result = 77
+ randv = 392097077
+ integer result for integer division = 3920970
+ naive float result for integer division = 3920970.000000
+ float result for float in numerator division = 3920970.7700
+ float result for float in denominator division = 3920970.7700

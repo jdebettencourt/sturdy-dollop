@@ -10,9 +10,6 @@ printf("Enter your guess as an integer, followed by -ENTER- please:\n");
 
     int value = 42;
     int guess = 0;
-    //srand(1951);
-    //int value = rand() % 100;
-
 
     while(guess!=value)
     {

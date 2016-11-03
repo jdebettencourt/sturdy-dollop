@@ -1,0 +1,126 @@
+	.file	"guess_signal.c"
+	.section	.rodata.str1.8,"aMS",@progbits,1
+	.align 8
+.LC0:
+	.string	"\n\n\007 KABLOOM! \n\n Bye, Bye Now! \n\n You took way too long! \n\n Now we're all dust in the cosmic wind again! \n"
+	.align 8
+.LC1:
+	.string	" Seriously? Are you that slow? \n\n\007"
+	.text
+	.globl	AlrmSigHnd
+	.type	AlrmSigHnd, @function
+AlrmSigHnd:
+.LFB42:
+	.cfi_startproc
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	movl	$.LC0, %edi
+	call	puts
+	movl	$2, %edi
+	call	sleep
+	movl	$.LC1, %esi
+	movl	$1, %edi
+	movl	$0, %eax
+	call	__printf_chk
+	movl	$0, %edi
+	call	exit
+	.cfi_endproc
+.LFE42:
+	.size	AlrmSigHnd, .-AlrmSigHnd
+	.section	.rodata.str1.8
+	.align 8
+.LC2:
+	.string	"\nLIFE, the UNIVERSE, and Everything!\007\n"
+	.align 8
+.LC3:
+	.string	"You now have 15 seconds to enter the correct answer."
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC4:
+	.string	"%d"
+.LC5:
+	.string	"This value is too big!"
+.LC6:
+	.string	"This value is too small!"
+	.section	.rodata.str1.8
+	.align 8
+.LC7:
+	.string	"Looks like you know the answer! %d  But what is the question?\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB43:
+	.cfi_startproc
+	pushq	%rbx
+	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
+	subq	$16, %rsp
+	.cfi_def_cfa_offset 32
+	movl	$AlrmSigHnd, %esi
+	movl	$14, %edi
+	call	signal
+	movl	$15, %edi
+	call	alarm
+	movl	$.LC2, %edi
+	call	puts
+	movl	$.LC3, %edi
+	call	puts
+	movl	$0, 12(%rsp)
+	movl	$0, %edi
+	call	time
+	movl	%eax, %edi
+	call	srand
+	call	rand
+	movl	%eax, %ecx
+	movl	$1374389535, %edx
+	imull	%edx
+	sarl	$5, %edx
+	movl	%edx, %ebx
+	movl	%ecx, %eax
+	sarl	$31, %eax
+	subl	%eax, %ebx
+	imull	$100, %ebx, %ebx
+	subl	%ebx, %ecx
+	movl	%ecx, %ebx
+	addl	$1, %ebx
+	jmp	.L9
+.L8:
+	leaq	12(%rsp), %rsi
+	movl	$.LC4, %edi
+	movl	$0, %eax
+	call	__isoc99_scanf
+	movl	12(%rsp), %eax
+	cmpl	%ebx, %eax
+	je	.L5
+	cmpl	%eax, %ebx
+	jge	.L6
+	movl	$.LC5, %edi
+	call	puts
+	jmp	.L9
+.L6:
+	cmpl	%eax, %ebx
+	jle	.L9
+	movl	$.LC6, %edi
+	call	puts
+.L9:
+	cmpl	%ebx, 12(%rsp)
+	jne	.L8
+.L5:
+	movl	12(%rsp), %edx
+	movl	$.LC7, %esi
+	movl	$1, %edi
+	movl	$0, %eax
+	call	__printf_chk
+	movl	$0, %edi
+	call	alarm
+	movl	$0, %eax
+	addq	$16, %rsp
+	.cfi_def_cfa_offset 16
+	popq	%rbx
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc
+.LFE43:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4"
+	.section	.note.GNU-stack,"",@progbits

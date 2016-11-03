@@ -1,4 +1,4 @@
-	.file	"guessfix.c"
+	.file	"guess1951.c"
 	.section	.rodata
 .LC0:
 	.string	"\nInteger GUESSING Game \007\n"
@@ -35,8 +35,25 @@ main:
 	call	puts
 	movl	$.LC2, %edi
 	call	puts
-	movl	$42, -4(%rbp)
 	movl	$0, -8(%rbp)
+	movl	$1951, %edi
+	call	srand
+	call	rand
+	movl	%eax, %ecx
+	movl	$1374389535, %edx
+	movl	%ecx, %eax
+	imull	%edx
+	sarl	$5, %edx
+	movl	%ecx, %eax
+	sarl	$31, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	movl	%eax, -4(%rbp)
+	movl	-4(%rbp), %eax
+	imull	$100, %eax, %eax
+	subl	%eax, %ecx
+	movl	%ecx, %eax
+	movl	%eax, -4(%rbp)
 	jmp	.L2
 .L6:
 	leaq	-8(%rbp), %rax

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <time.h>
+
 
 void AlrmSigHnd()
 {
@@ -27,9 +29,10 @@ printf("\nLIFE, the UNIVERSE, and Everything!\a\n\n");
 printf("You now have 15 seconds to enter the correct answer.\n");
 
 
-    int value = 42;
     int guess = 0;
-
+    srand(time(NULL));
+    int value = rand() % 100 + 1;
+    
 
     while(guess!=value)
     {
